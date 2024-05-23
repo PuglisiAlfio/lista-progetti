@@ -1,6 +1,13 @@
 import Button from "./Button.jsx";
+import Tasks from "./Tasks.jsx";
 
-export default function SelectedProject({ project }) {
+export default function SelectedProject({
+  project,
+  onDelete,
+  onAddTask,
+  onDeleteTask,
+  tasks,
+}) {
   const formattedDate = new Date(project.scadenza).toLocaleDateString("it-IT", {
     year: "numeric",
     month: "long",
@@ -11,13 +18,17 @@ export default function SelectedProject({ project }) {
     <div className="w-[35rem] mt-16">
       <header className="pb-4 mb-4 border-b-2 border-stone-300">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-stone-600 mb-2">{project.titolo}</h1>
-          <Button>Elimina</Button>
+          <h1 className="text-3xl font-bold text-stone-600 mb-2">
+            {project.titolo}
+          </h1>
+          <Button onClick={onDelete}>Elimina</Button>
         </div>
         <p className="mb-4 text-stone-400">{formattedDate}</p>
-        <p className="text-stone-600 whitespace-pre-wrap">{project.descrizione}</p>
+        <p className="text-stone-600 whitespace-pre-wrap">
+          {project.descrizione}
+        </p>
       </header>
-      <ul>TASK</ul>
+      <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
     </div>
   );
 }
